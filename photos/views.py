@@ -3,8 +3,13 @@ from photos import models
 # Create your views here.
 
 def gallery(request):
+    category=request.GET.get('category')
+    if category == None:
+        photos=models.Photo.objects.all()
+    else:
+        photos=models.Photo.objects.filter(category__name=category)    
+
     categories=models.Category.objects.all()
-    photos=models.Photo.objects.all()
 
     context={
     'categories':categories,
